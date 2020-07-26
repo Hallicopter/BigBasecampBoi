@@ -5,7 +5,7 @@ from uuid import uuid4
 
 import requests
 import requests.auth
-from flask import Flask, abort, request, render_template
+from flask import Flask, abort, request, render_template, redirect
 
 CLIENT_ID = os.environ['CLIENT_ID']
 CLIENT_SECRET = os.environ['CLIENT_SECRET']  # Fill this in with your client secret
@@ -36,8 +36,7 @@ def homepage():
         bucket_id = request.form['bucketId']
         slack_webhook = request.form['webhook']
         team_id = request.form['teamId']
-        text = '<a href="%s">Click to authenticate with Basecamp 3, (yes I know this looks shady, but trust me.)</a>'
-        return text % make_authorization_url()
+        return redirect(make_authorization_url())
     return render_template('index.html')
 
 
